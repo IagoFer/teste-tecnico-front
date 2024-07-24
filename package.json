@@ -7,13 +7,16 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:unit": "jest",
+    "start": "node server.js",
     "test:e2e": "cypress run"
   },
   "dependencies": {
     "apexcharts": "^3.50.0",
     "axios": "^1.7.2",
     "core-js": "^3.8.3",
+    "express": "^4.19.2",
     "pinia": "^2.1.7",
+    "serve-static": "^1.15.0",
     "vee-validate": "^4.8.4",
     "vue": "^3.2.13",
     "vue-router": "^4.4.0",
