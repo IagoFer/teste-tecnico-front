@@ -1,5 +1,3 @@
-# user-management-app
-
 ## Descrição do Projeto
 
 Este é um aplicativo de gerenciamento de usuários desenvolvido usando Vue.js. O objetivo é fornecer uma interface para criar, visualizar e gerenciar usuários. O projeto é configurado para desenvolvimento local e produção, e inclui testes automatizados com Jest e Cypress.
@@ -38,12 +36,6 @@ Este é um aplicativo de gerenciamento de usuários desenvolvido usando Vue.js. 
      ```
    - O resultado será um conjunto de arquivos otimizados na pasta `dist`. Esses arquivos estão prontos para serem enviados ao servidor de produção.
 
-4. **Linter e Correção de Arquivos**
-   - Para verificar e corrigir automaticamente problemas no código, execute:
-     ```bash
-     npm run lint
-     ```
-
 5. **Rodar Testes**
    - Para rodar testes unitários, use o comando:
      ```bash
@@ -56,6 +48,13 @@ Este é um aplicativo de gerenciamento de usuários desenvolvido usando Vue.js. 
 
 6. **Personalizar a Configuração**
    - Se precisar personalizar a configuração do projeto, consulte a [Referência de Configuração do Vue CLI](https://cli.vuejs.org/config/).
+
+ ## Login
+
+Use as seguintes credenciais para fazer login:
+
+- **Email**: `eve.holt@reqres.in`
+- **Senha**: `cityslicka`
 
 ## Desdobramentos e Decisões
 
