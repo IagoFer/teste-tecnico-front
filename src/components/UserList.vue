@@ -121,7 +121,7 @@ export default {
         this.showConfirmModal = false;
         this.userToDelete = null;
         this.fetchUsers({ search: this.search, page: this.currentPage, perPage: this.perPage });
-        this.showSuccessAlert('Usuário excluído com sucesso.');
+        this.showErrorAlert('Usuário excluído com sucesso.');
       } catch (error) {
         this.showConfirmModal = false;
         this.userToDelete = null;

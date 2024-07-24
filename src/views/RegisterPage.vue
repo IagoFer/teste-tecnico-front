@@ -58,7 +58,7 @@ export default {
         await this.register({ email: this.email, password: this.password });
         if (this.authStatus === 'registered') {
           this.setMessage('Registro bem-sucedido. Por favor, faça login.');
-          this.$router.push('/login');
+          this.$router.push('/entrar');
         } else {
           this.error = 'Registro falhou.';
         }
