@@ -1,5 +1,10 @@
 <template>
   <div class="p-4">
+    <!-- Alerta de Sucesso -->
+    <div v-if="showAlert" class="alert-success">
+      <p>Login efetuado com sucesso!</p>
+    </div>
+
     <h2 class="text-2xl font-bold mb-4">Painel de Usuários</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
       <div v-if="barSeries[0].data.length">
@@ -12,6 +17,7 @@
 <script>
 import VueApexCharts from 'vue3-apexcharts';
 import { mapGetters } from 'vuex';
+import { ref, onMounted, watch } from 'vue';
 
 export default {
   components: {
@@ -22,6 +28,7 @@ export default {
   },
   data() {
     return {
+      showAlert: false, // Estado para controlar a exibição do alerta
       barChartOptions: {
         chart: {
           id: 'bar-chart',
@@ -140,6 +147,15 @@ export default {
     }
   },
   mounted() {
+    // Verifica o parâmetro de URL e exibe o alerta se necessário
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('login_success') === 'true') {
+      this.showAlert = true;
+      setTimeout(() => {
+        this.showAlert = false; // Oculta o alerta após alguns segundos
+      }, 3000); // Alerta visível por 3 segundos
+    }
+    
     this.$store.dispatch('users/fetchUsers'); // Busca dados dos usuários quando o componente é montado
   },
   watch: {
@@ -154,6 +170,17 @@ export default {
 </script>
 
 <style scoped>
+.alert-success {
+  background-color: #d4edda;
+  border-left: 5px solid #28a745;
+  padding: 16px;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #155724;
+  font-size: 1rem;
+}
+
 h2 {
   text-align: center;
   margin-bottom: 20px;

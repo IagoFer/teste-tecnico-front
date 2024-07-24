@@ -3,11 +3,11 @@ import LoginPage from '../views/LoginPage.vue';
 import RegisterPage from '../views/RegisterPage.vue';
 import DashboardPage from '../views/DashboardPage.vue';
 import UserList from '../components/UserList.vue';
-import UserManagement from '../components/UserManagement.vue'; // Importando o novo componente
+import UserManagement from '../components/UserManagement.vue';
 import store from '../store';
 
 const routes = [
-  { path: '/', name: 'UserManagement', component: UserManagement }, // Substituindo HomePage por UserManagement
+  { path: '/', name: 'InicioBusca', component: UserManagement },
   { path: '/entrar', name: 'Entrar', component: LoginPage },
   { path: '/registrar', name: 'Registrar', component: RegisterPage },
   {

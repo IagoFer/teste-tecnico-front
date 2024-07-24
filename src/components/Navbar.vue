@@ -25,7 +25,8 @@ export default {
     handleLogout() {
       this.logout();
       this.setMessage('Você foi deslogado com sucesso.');
-      this.$router.push('/');
+      // Redireciona para a página inicial com parâmetro de sucesso
+      this.$router.push({ path: '/', query: { logout_success: 'true' } });
     }
   },
 };

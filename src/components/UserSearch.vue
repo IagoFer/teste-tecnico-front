@@ -1,7 +1,12 @@
 <template>
   <div class="container">
+    <!-- Alerta de Logout -->
+    <div v-if="showAlert" class="alert-card alert-logout">
+      <p>{{ alertMessage }}</p>
+    </div>
+
     <h1>Busca de Usuários</h1>
-    <div class="alert-card">
+    <div class="alert-card alert-info">
       <p>Não é necessário estar logado para realizar a busca. Mas se quiser fazer alguma ação efetue o login.</p>
       <p>Existem id de 1 a 12</p>
     </div>
@@ -23,24 +28,43 @@
 
 <script>
 import axios from 'axios';
+import { onMounted, ref } from 'vue';
 
 export default {
-  data() {
-    return {
-      userId: '',
-      user: null,
-    };
-  },
-  methods: {
-    async fetchUser() {
+  setup() {
+    const userId = ref('');
+    const user = ref(null);
+    const showAlert = ref(false);
+    const alertMessage = ref('');
+
+    const fetchUser = async () => {
       try {
-        const response = await axios.get(`https://reqres.in/api/users/${this.userId}`);
-        this.user = response.data.data;
+        const response = await axios.get(`https://reqres.in/api/users/${userId.value}`);
+        user.value = response.data.data;
       } catch (error) {
         console.error('Erro ao buscar usuário:', error);
       }
-    },
-  },
+    };
+
+    onMounted(() => {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('logout_success') === 'true') {
+        showAlert.value = true;
+        alertMessage.value = 'Você foi deslogado com sucesso.';
+        setTimeout(() => {
+          showAlert.value = false; // Oculta o alerta após alguns segundos
+        }, 3000); // Alerta visível por 3 segundos
+      }
+    });
+
+    return {
+      userId,
+      user,
+      showAlert,
+      alertMessage,
+      fetchUser
+    };
+  }
 };
 </script>
 
@@ -59,8 +83,7 @@ h1 {
 }
 
 .alert-card {
-  background-color: #ffecb3;
-  border-left: 5px solid #fbc02d;
+  border-left: 5px solid;
   padding: 16px;
   margin-bottom: 24px;
   border-radius: 8px;
@@ -70,6 +93,16 @@ h1 {
 .alert-card p {
   margin: 0;
   color: #333;
+}
+
+.alert-info {
+  background-color: #ffecb3;
+  border-color: #fbc02d;
+}
+
+.alert-logout {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
 }
 
 .search-container {

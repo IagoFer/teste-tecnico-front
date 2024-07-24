@@ -2,6 +2,10 @@
   <div class="flex justify-center items-center min-h-screen bg-gray-100">
     <div class="w-full max-w-sm bg-white p-8 rounded-lg shadow-lg">
       <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Acesso</h1>
+      <!-- Mensagem de sucesso -->
+      <div v-if="showSuccessAlert" class="alert-card alert-success">
+        <p>{{ successMessage }}</p>
+      </div>
       <form @submit.prevent="onSubmit" class="space-y-4">
         <div>
           <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
@@ -37,7 +41,7 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, onMounted } from 'vue';
 import { useField, useForm, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
 import { useStore } from 'vuex';
@@ -52,6 +56,8 @@ export default defineComponent({
     const store = useStore();
     const router = useRouter();
     const loginError = ref(null);
+    const showSuccessAlert = ref(false);
+    const successMessage = ref('');
 
     const { handleSubmit, errors } = useForm({
       validationSchema: yup.object({
@@ -63,13 +69,25 @@ export default defineComponent({
     const { value: email } = useField('email');
     const { value: password } = useField('password');
 
-    const onSubmit = handleSubmit(async (values) => {
-      try {
-        await store.dispatch('auth/login', values);
-        router.push('/painel');
-      } catch (error) {
-        console.error('Login falhou:', error);
-        loginError.value = 'Login falhou, por favor verifique suas credenciais.';
+const onSubmit = handleSubmit(async (values) => {
+  try {
+    await store.dispatch('auth/login', values);
+    router.push({ path: '/painel', query: { login_success: 'true' } });
+  } catch (error) {
+    console.error('Login falhou:', error);
+    loginError.value = 'Login falhou, por favor verifique suas credenciais.';
+  }
+});
+
+
+    onMounted(() => {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('register_success') === 'true') {
+        showSuccessAlert.value = true;
+        successMessage.value = 'Registro bem-sucedido. Por favor, faça login.';
+        setTimeout(() => {
+          showSuccessAlert.value = false; // Oculta o alerta após alguns segundos
+        }, 3000); // Alerta visível por 3 segundos
       }
     });
 
@@ -79,6 +97,8 @@ export default defineComponent({
       errors,
       onSubmit,
       loginError,
+      showSuccessAlert,
+      successMessage
     };
   },
 });
@@ -100,5 +120,24 @@ export default defineComponent({
 button {
   font-weight: 500;
   font-size: 1rem;
+}
+
+/* Estilo para o alerta de sucesso */
+.alert-card {
+  border-left: 5px solid;
+  padding: 16px;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.alert-card p {
+  margin: 0;
+  color: #333;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
 }
 </style>

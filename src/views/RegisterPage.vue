@@ -2,6 +2,10 @@
   <div class="flex justify-center items-center min-h-screen bg-gray-100">
     <div class="w-full max-w-sm bg-white p-8 rounded-lg shadow-lg">
       <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Registrar</h1>
+      <!-- Mensagem de sucesso -->
+      <div v-if="showSuccessAlert" class="alert-card alert-success">
+        <p>{{ successMessage }}</p>
+      </div>
       <form @submit.prevent="registerUser" class="space-y-4">
         <div>
           <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
@@ -44,7 +48,9 @@ export default {
     return {
       email: '',
       password: '',
-      error: null
+      error: null,
+      successMessage: '',
+      showSuccessAlert: false
     };
   },
   computed: {
@@ -57,8 +63,12 @@ export default {
         this.error = null; // Reset error state
         await this.register({ email: this.email, password: this.password });
         if (this.authStatus === 'registered') {
-          this.setMessage('Registro bem-sucedido. Por favor, faça login.');
-          this.$router.push('/entrar');
+          this.successMessage = 'Registro bem-sucedido. Por favor, faça login.';
+          this.showSuccessAlert = true;
+          setTimeout(() => {
+            this.showSuccessAlert = false; // Oculta o alerta após alguns segundos
+            this.$router.push('/entrar');
+          }, 3000); // Alerta visível por 3 segundos
         } else {
           this.error = 'Registro falhou.';
         }
@@ -87,5 +97,24 @@ export default {
 button {
   font-weight: 500;
   font-size: 1rem;
+}
+
+/* Estilo para o alerta de sucesso */
+.alert-card {
+  border-left: 5px solid;
+  padding: 16px;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.alert-card p {
+  margin: 0;
+  color: #333;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
 }
 </style>
