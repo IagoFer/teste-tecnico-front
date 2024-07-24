@@ -69,8 +69,6 @@ Para começar o desenvolvimento do projeto, meu foco inicial foi construir a fun
 
 - **Testes**: Para garantir a qualidade e a estabilidade do código, incluí testes automatizados com Jest para testes unitários e Cypress para testes end-to-end. Os testes são essenciais para validar a funcionalidade de componentes e fluxos de usuário, e para garantir que o aplicativo se comporte conforme esperado.
 
-- **Dependências e Ferramentas**: Jest foi escolhido para testes unitários pela sua integração eficiente com o Vue, enquanto Cypress foi utilizado para testes end-to-end por sua robustez e capacidade de simular interações complexas com o usuário.
-
 ### Configuração e Deploy
 
 - **Configuração Local**: Para configurar o projeto localmente, instale as dependências com `npm install`, inicie o servidor de desenvolvimento com `npm run serve`, e utilize `npm run build` para criar uma versão otimizada para produção.
