@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn-primary {
+  @apply bg-blue-500 text-white py-2 px-4 rounded-md shadow-md transition-transform duration-300;
+}
+
+.btn-primary:hover {
+  @apply bg-blue-600 transform scale-105;
+}
+
+.navbar {
+  @apply bg-gray-800 p-4 flex justify-between items-center;
+}
+
+.nav-link {
+  @apply text-white;
+}
+
+.nav-link:hover {
+  @apply bg-gray-700;
+}
+
+.pagination {
+  @apply flex justify-center items-center mt-4;
+}
+
+.pagination button {
+  @apply mx-2 p-2 bg-gray-300 hover:bg-gray-400 rounded;
+}
+
+.modal-fade-enter-active, .modal-fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.modal-fade-enter, .modal-fade-leave-to {
+  opacity: 0;
+}
